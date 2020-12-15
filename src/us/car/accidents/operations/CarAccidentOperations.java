@@ -16,22 +16,29 @@ public class CarAccidentOperations {
      */
     public String getMostCommonSeverity(ArrayList<CarAccident> carAccidents) {
         Map<String, Integer> map = new HashMap<>();
-
+        int nulas =0;
         for (CarAccident t : carAccidents) {
             if (t.getSeverity() != null) {
                 Integer val = map.get(t.getSeverity());
                 map.put(t.getSeverity(), val == null ? 1 : val + 1);
             }
+            else{
+                nulas ++;
+            }
         }
+        System.out.println("Numero de severidades nulas:"+nulas);
 
         Map.Entry<String, Integer> max = null;
-
+        int total_severidades = 0;
         for (Map.Entry<String, Integer> e : map.entrySet()) {
             System.out.println("Tipo de severidad: "+e.getKey()+" Numero de ocurrencias: "+e.getValue());
+            total_severidades += e.getValue();
             if (max == null || e.getValue() > max.getValue())
                 max = e;
         }
-
+        int Totales = total_severidades+nulas;
+        System.out.println("Total de las cuatro severidades: "+total_severidades);
+        System.out.println("Total de las severidades mas las nulas"+Totales);
         return max.getKey();
     }
 
@@ -61,7 +68,7 @@ public class CarAccidentOperations {
             if (max == null || e.getValue() > max.getValue())
                 max = e;
         }
-
+        System.out.println("Lado "+max.getKey()+" ocurrencias: "+max.getValue());
         return max.getKey().equals("R")  ? "derecho" : "izquierdo";
     }
 
